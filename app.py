@@ -85,7 +85,7 @@ def predict():
         # Add debug statement
         print("Predicted class:", predicted_class)
 
-        return render_template('index.html', prediction=predicted_class)
+        return render_template('result.html', prediction=predicted_class)
 
     return render_template("index.html")
 

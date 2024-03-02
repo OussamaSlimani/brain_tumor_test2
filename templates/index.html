@@ -147,62 +147,36 @@
 
     <main id="main">
       <!-- ======= Get Started Section ======= -->
-
-      <!-- ======= Get Started Section ======= -->
-      <!-- HTML Section -->
-
-      <!-- Add ID to the form -->
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-
-      <!-- ======= Get Started Section ======= -->
-      <!-- ======= Get Started Section ======= -->
-      <!-- HTML Section -->
       <section id="about" class="about">
         <div class="container" data-aos="fade-up">
-          <div class="row">
-            {% if not prediction %}
-            <div class="upload-container">
-              <div class="upload-form">
-                <form
-                  action="/"
-                  method="POST"
-                  enctype="multipart/form-data"
-                  id="uploadForm"
-                >
-                  <div class="mb-3 text-center upload-box" id="uploadBox">
-                    <label for="imageInput" class="form-label">
-                      <i class="bx bx-cloud-upload bx-3x"></i>
-                      <div>Choose or Drag and Drop an image</div>
-                    </label>
-                    <div class="input-group half-width-input">
-                      <input
-                        class="form-control form-control-lg"
-                        id="imageInput"
-                        type="file"
-                        name="imagefile"
-                        accept="image/*"
-                      />
-                    </div>
+          <div class="upload-container">
+            <div class="upload-form">
+              <form
+                action="/"
+                method="POST"
+                enctype="multipart/form-data"
+                id="uploadForm"
+              >
+                <div class="mb-3 text-center upload-box" id="uploadBox">
+                  <label for="imageInput" class="form-label">
+                    <i class="bx bx-cloud-upload bx-3x"></i>
+                    <div>Choose or Drag and Drop an image</div>
+                  </label>
+                  <div class="input-group half-width-input">
+                    <input
+                      class="form-control form-control-lg"
+                      id="imageInput"
+                      type="file"
+                      name="imagefile"
+                      accept="image/*"
+                    />
                   </div>
-                  <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn-upload">Predict</button>
-                  </div>
-                </form>
-              </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn-upload">Predict</button>
+                </div>
+              </form>
             </div>
-            {% else %}
-            <div class="result-box">
-              <div class="result-container">
-                <h3 class="text-center text-primary">
-                  Image is a {{prediction}}
-                </h3>
-              </div>
-            </div>
-            {% endif %}
           </div>
         </div>
       </section>
@@ -239,46 +213,6 @@
           });
         });
       </script>
-
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-      <!-- ======= Footer ======= -->
-      <!-- JavaScript Section -->
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          var uploadBox = document.getElementById("uploadBox");
-
-          uploadBox.addEventListener("dragover", function (e) {
-            e.preventDefault();
-            uploadBox.classList.add("dragover");
-          });
-
-          uploadBox.addEventListener("dragleave", function () {
-            uploadBox.classList.remove("dragover");
-          });
-
-          uploadBox.addEventListener("drop", function (e) {
-            e.preventDefault();
-            uploadBox.classList.remove("dragover");
-
-            var files = e.dataTransfer.files;
-            document.getElementById("imageInput").files = files;
-          });
-
-          // Add a hover effect on the upload box
-          uploadBox.addEventListener("mouseenter", function () {
-            uploadBox.classList.add("hover");
-          });
-
-          uploadBox.addEventListener("mouseleave", function () {
-            uploadBox.classList.remove("hover");
-          });
-        });
-      </script>
-
       <!-- ======= End Get Started Section ======= -->
 
       <!-- ======= About Us Section ======= -->
