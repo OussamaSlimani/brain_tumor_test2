@@ -67,11 +67,23 @@
                 </h3>
               </div>
             </div>
+
+            <div
+              class="container d-flex justify-content-center p-4"
+              data-aos="fade-up"
+            >
+              <img
+                src="{{ url_for('static', filename=image_path) }}"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
             {% endif %}
           </div>
         </div>
       </section>
     </main>
+
     <!-- End #main -->
 
     <div id="preloader"></div>
