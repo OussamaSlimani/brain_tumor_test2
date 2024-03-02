@@ -17,31 +17,40 @@
     />
 
     <!-- Vendor CSS Files -->
-    <link href="../assets/vendor/aos/aos.css" rel="stylesheet" />
     <link
-      href="../assets/vendor/bootstrap/css/bootstrap.min.css"
+      href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}"
       rel="stylesheet"
     />
     <link
-      href="../assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}"
       rel="stylesheet"
     />
     <link
-      href="../assets/vendor/boxicons/css/boxicons.min.css"
+      href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}"
       rel="stylesheet"
     />
     <link
-      href="../assets/vendor/glightbox/css/glightbox.min.css"
+      href="{{ url_for('static', filename='assets/vendor/boxicons/css/boxicons.min.css') }}"
       rel="stylesheet"
     />
-    <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
     <link
-      href="../assets/vendor/swiper/swiper-bundle.min.css"
+      href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='assets/vendor/remixicon/remixicon.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}"
       rel="stylesheet"
     />
 
     <!-- Template Main CSS File -->
-    <link href="../assets/css/style.css" rel="stylesheet" />
+    <link
+      href="{{ url_for('static', filename='assets/css/style.css') }}"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -125,7 +134,11 @@
             data-aos="zoom-in"
             data-aos-delay="200"
           >
-            <img src="img\hero-2-01.png" class="img-fluid animated" alt="" />
+            <img
+              src="{{ url_for('static', filename='assets/img/hero-2-01.png') }}"
+              class="img-fluid animated"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -134,25 +147,38 @@
 
     <main id="main">
       <!-- ======= Get Started Section ======= -->
+
+      <!-- ======= Get Started Section ======= -->
+      <!-- HTML Section -->
+
+      <!-- Add ID to the form -->
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+
+      <!-- ======= Get Started Section ======= -->
+      <!-- ======= Get Started Section ======= -->
+      <!-- HTML Section -->
       <section id="about" class="about">
         <div class="container" data-aos="fade-up">
           <div class="row">
-            <div class="col-lg-7 order-lg-2">
-              <div
-                class="d-flex flex-column justify-content-center align-items-stretch bg-light p-5"
-              >
+            {% if not prediction %}
+            <div class="upload-container">
+              <div class="upload-form">
                 <form
                   action="/"
                   method="POST"
                   enctype="multipart/form-data"
                   id="uploadForm"
                 >
-                  <div class="mb-3 text-center">
+                  <div class="mb-3 text-center upload-box" id="uploadBox">
                     <label for="imageInput" class="form-label">
                       <i class="bx bx-cloud-upload bx-3x"></i>
                       <div>Choose or Drag and Drop an image</div>
                     </label>
-                    <div class="input-group">
+                    <div class="input-group half-width-input">
                       <input
                         class="form-control form-control-lg"
                         id="imageInput"
@@ -163,49 +189,97 @@
                     </div>
                   </div>
                   <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-lg">
-                      Predict
-                    </button>
+                    <button type="submit" class="btn-upload">Predict</button>
                   </div>
                 </form>
               </div>
             </div>
-            <div class="col-lg-5 order-lg-1">
-              {% if prediction %}
+            {% else %}
+            <div class="result-box">
               <div class="result-container">
-                <p class="text-center">Image is a {{prediction}}</p>
+                <h3 class="text-center text-primary">
+                  Image is a {{prediction}}
+                </h3>
               </div>
-              {% endif %}
             </div>
+            {% endif %}
           </div>
         </div>
       </section>
-      <!-- End Get Started Section -->
 
+      <!-- JavaScript Section -->
       <script>
         document.addEventListener("DOMContentLoaded", function () {
-          var form = document.getElementById("uploadForm");
+          var uploadBox = document.getElementById("uploadBox");
 
-          form.addEventListener("submit", function (e) {
+          uploadBox.addEventListener("dragover", function (e) {
             e.preventDefault();
-
-            // Add additional logic if needed before submitting the form
-            // For example, you may want to show a loading spinner during the prediction process
-
-            // Submit the form using JavaScript
-            this.submit();
+            uploadBox.classList.add("dragover");
           });
 
-          var input = document.getElementById("formFileLg");
+          uploadBox.addEventListener("dragleave", function () {
+            uploadBox.classList.remove("dragover");
+          });
 
-          input.addEventListener("change", function () {
-            // Display the selected filename
-            var fileName = this.files[0].name;
-            var smallText = this.parentElement.querySelector(".text-muted");
-            smallText.textContent = fileName;
+          uploadBox.addEventListener("drop", function (e) {
+            e.preventDefault();
+            uploadBox.classList.remove("dragover");
+
+            var files = e.dataTransfer.files;
+            document.getElementById("imageInput").files = files;
+          });
+
+          // Add a hover effect on the upload box
+          uploadBox.addEventListener("mouseenter", function () {
+            uploadBox.classList.add("hover");
+          });
+
+          uploadBox.addEventListener("mouseleave", function () {
+            uploadBox.classList.remove("hover");
           });
         });
       </script>
+
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+      <!-- ======= Footer ======= -->
+      <!-- JavaScript Section -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var uploadBox = document.getElementById("uploadBox");
+
+          uploadBox.addEventListener("dragover", function (e) {
+            e.preventDefault();
+            uploadBox.classList.add("dragover");
+          });
+
+          uploadBox.addEventListener("dragleave", function () {
+            uploadBox.classList.remove("dragover");
+          });
+
+          uploadBox.addEventListener("drop", function (e) {
+            e.preventDefault();
+            uploadBox.classList.remove("dragover");
+
+            var files = e.dataTransfer.files;
+            document.getElementById("imageInput").files = files;
+          });
+
+          // Add a hover effect on the upload box
+          uploadBox.addEventListener("mouseenter", function () {
+            uploadBox.classList.add("hover");
+          });
+
+          uploadBox.addEventListener("mouseleave", function () {
+            uploadBox.classList.remove("hover");
+          });
+        });
+      </script>
+
+      <!-- ======= End Get Started Section ======= -->
 
       <!-- ======= About Us Section ======= -->
       <section id="about" class="about">
@@ -283,14 +357,11 @@
                 </ul>
               </div>
             </div>
-
-            <div
-              class="col-lg-5 align-items-stretch order-1 order-lg-2 img"
-              style="background-image: url('../assets/img/why-us.png')"
-              data-aos="zoom-in"
-              data-aos-delay="150"
-            >
-              &nbsp;
+            <div class="col-lg-5 order-lg-1">
+              <img
+                src="{{ url_for('static', filename='assets/img/why-us.png') }}"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -306,7 +377,11 @@
               data-aos="fade-right"
               data-aos-delay="100"
             >
-              <img src="../assets/img/skills.png" class="img-fluid" alt="" />
+              <img
+                src="{{ url_for('static', filename='assets/img/skills.png') }}"
+                class="img-fluid"
+                alt=""
+              />
             </div>
             <div
               class="col-lg-6 pt-4 pt-lg-0 content"
@@ -445,7 +520,7 @@
               <div class="member d-flex align-items-start">
                 <div class="pic">
                   <img
-                    src="../assets/img/team/team-1.jpg"
+                    src="{{ url_for('static', filename='assets/img/team/team-1.jpg') }}"
                     class="img-fluid"
                     alt=""
                   />
@@ -471,7 +546,7 @@
               <div class="member d-flex align-items-start">
                 <div class="pic">
                   <img
-                    src="../assets/img/team/team-2.jpg"
+                    src="{{ url_for('static', filename='assets/img/team/team-2.jpg') }}"
                     class="img-fluid"
                     alt=""
                   />
@@ -493,7 +568,7 @@
               <div class="member d-flex align-items-start">
                 <div class="pic">
                   <img
-                    src="../assets/img/team/team-3.jpg"
+                    src="{{ url_for('static', filename='assets/img/team/team-3.jpg') }}"
                     class="img-fluid"
                     alt=""
                   />
@@ -515,7 +590,7 @@
               <div class="member d-flex align-items-start">
                 <div class="pic">
                   <img
-                    src="../assets/img/team/team-4.jpg"
+                    src="{{ url_for('static', filename='assets/img/team/team-4.jpg') }}"
                     class="img-fluid"
                     alt=""
                   />
@@ -703,15 +778,15 @@
     ></a>
 
     <!-- Vendor JS Files -->
-    <script src="../assets/vendor/aos/aos.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="../assets/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="../assets/vendor/php-email-form/validate.js"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- Template Main JS File -->
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
   </body>
 </html>

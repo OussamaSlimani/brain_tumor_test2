@@ -1,3 +1,5 @@
+
+
 from flask import Flask, render_template, request
 import os
 import torch
@@ -31,12 +33,18 @@ def predict_tumor_class(image_path):
     try:
         img = Image.open(image_path).convert('RGB')
     except Exception as e:
+        print("Error opening the image:", e)
         return "Error processing the image. Please make sure it's a valid image file."
 
     try:
         img = transform_val(img).unsqueeze(0).to(device)
     except Exception as e:
+        print("Error processing the image:", e)
         return "Error processing the image. Please try again."
+
+    # Add debug statements
+    print("Image path:", image_path)
+    print("Image shape:", img.shape)
 
     # Make predictions
     with torch.no_grad():
@@ -44,9 +52,16 @@ def predict_tumor_class(image_path):
         probabilities = torch.nn.functional.softmax(output, dim=-1)
         predicted_class_index = torch.argmax(probabilities, dim=-1).item()
 
+    # Check if the prediction is empty
+    if not classes:
+        return "Error: Classes list is empty."
+
     # Decode predictions
     class_label = classes[predicted_class_index]
     return class_label
+
+# Configuring the static folder
+app.static_folder = 'static'
 
 @app.route('/', methods=['GET', 'POST'])
 def predict():
@@ -58,12 +73,17 @@ def predict():
         try:
             imagefile.save(image_path)
         except Exception as e:
+            print("Error saving the image:", e)
             return render_template('index.html', error="Error saving the image. Please try again.")
 
         try:
             predicted_class = predict_tumor_class(image_path)
         except Exception as e:
+            print("Error predicting tumor class:", e)
             return render_template('index.html', error="Error predicting tumor class. Please try again.")
+
+        # Add debug statement
+        print("Predicted class:", predicted_class)
 
         return render_template('index.html', prediction=predicted_class)
 
